@@ -1,0 +1,13 @@
+body {
+  background-color: #fff;
+}
+
+.sidebar-menu {
+  background-color: #123;
+}
+
+#menu li a {
+  background-color: #123;
+  border-left: 4px solid #side-nav-border;
+}
+
