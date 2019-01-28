@@ -88,6 +88,13 @@
 		    </div>
 		@endif
 	</div>
+	<div style="position: fixed; bottom: 10px; right: 15px; margin-left: 15px">
+		@if(session()->has('error'))
+		    <div class="alert alert-danger flash" style="padding: 8px">
+		        {{ session()->get('error') }}
+		    </div>
+		@endif
+	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
 		    $('.flash').delay(5000).fadeOut(1000);

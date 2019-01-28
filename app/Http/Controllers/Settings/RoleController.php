@@ -53,7 +53,7 @@ class RoleController extends Controller
         
         $role = new Role;
         $role->name = $name;
-        $role->slug = strtolower(str_replace(' ', '-', $name));
+        $slug = str_slug($name, '-');
         $role->weight = $request->weight;   
         $role->save();
          

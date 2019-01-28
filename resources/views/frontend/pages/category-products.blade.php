@@ -12,7 +12,7 @@
                     <div class="product-googles-info googles">
                         <div class="men-pro-item">
                             <div class="men-thumb-item">
-                                <img src="{{asset($food->thumbnail)}}" class="img-fluid" alt="">
+                                <img src="{{asset('public/'.$food->thumbnail)}}" class="img-fluid" alt="">
                                 <div class="men-cart-pro">
                                     <div class="inner-men-cart-pro">
                                         <a href="{{route('food-detatils', $food)}}" class="link-product-add-cart">Quick View</a>

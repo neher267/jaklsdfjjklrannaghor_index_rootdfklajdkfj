@@ -2,13 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Middleware\Traits\SentinelTrait;
 use Closure;
 
-class AdmenMiddleware
+class ChairmanMiddleware
 {
-    use SentinelTrait;
-    
     /**
      * Handle an incoming request.
      *
@@ -18,9 +15,6 @@ class AdmenMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if($this->authorize('admen')) 
-            return $next($request);
-        else
-            return redirect()->back();
+        return $next($request);
     }
 }

@@ -16,14 +16,6 @@ class SentinelLoginController extends Controller
 
     public function post_login(Request $request)
     {   
-        /**
-        * Customer must login using mobile no
-        */
-
-        // if(!is_numeric($request->mobile)){
-        //     return back();
-        // }
-
         $previous_url = $request->session()->get('_previous');
         Sentinel::authenticate($request->all());
     	if( $user = Sentinel::check())
@@ -39,7 +31,7 @@ class SentinelLoginController extends Controller
             }            
     	}
     	else
-    		return redirect()->back();
+    		return back()->withError('Your mobile no or password is not correct!');
     }
 
     public function logout()

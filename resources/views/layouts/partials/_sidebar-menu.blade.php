@@ -4,7 +4,7 @@
 <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
 <div class="menu">
 	<ul id="menu" >		
-		@role('admen', 'hr')
+		@role('admin', 'hr')
 		<li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span>Settings</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 			<ul id="menu-academico-sub" >
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('areas.index')}}">Areas</a></li>

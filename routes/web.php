@@ -2,23 +2,21 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Current Used Public Routes
 |--------------------------------------------------------------------------
-|
 */
-
-
 Route::get('/', 'PublicController@index');
 Route::get('contact', 'PublicController@contact_us');
-Route::get('all-gifts', 'PublicController@gifts');
-Route::get('all-gifts/{gift}', 'PublicController@gift_details');
 Route::get('categories','PublicController@categories');
 Route::get('categories/{category}/foods','PublicController@category_foods')->name('category.foods');
 Route::get('/{category}/types','PublicController@category_types');
 Route::get('{product}/packages', 'PublicController@product_packages');
-Route::get('details','PublicController@details');
 
 Route::post('logout', 'Auth\SentinelLoginController@logout')->middleware('sentinel.auth');
+
+Route::get('all-gifts', 'PublicController@gifts');
+Route::get('all-gifts/{gift}', 'PublicController@gift_details');
+
 
 
 Route::group(['namespace'=>'Auth', 'middleware'=>['guest']], function(){
@@ -71,13 +69,13 @@ Route::post('orders','OrderController@store');//customer middleware and needed
 //end cart
 
 //inquiries
-//Route::get('dashboard/inquiries', 'InquiryController@index')->middleware('admen');
+//Route::get('dashboard/inquiries', 'InquiryController@index')->middleware('admin');
 Route::post('inquiries', 'InquiryController@store');
-//Route::get('dashboard/inquiries/{inquiry}', 'InquiryController@show')->middleware('admen')->name('inquiries.show');
+//Route::get('dashboard/inquiries/{inquiry}', 'InquiryController@show')->middleware('admin')->name('inquiries.show');
 
 //end inquiries
 
-// Admen panel 
+// admin panel 
 
 
 
@@ -86,13 +84,13 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
 
 	Route::get('/','DashboardController@index');
 	Route::get('profile','ProfileController@index');
-	Route::group(['middleware'=>['buyer']], function(){
+	Route::group(['middleware'=>['admin']], function(){
 		Route::resource('packages','PackageController');
 		Route::resource('trets','TretController');
 		Route::resource('register','Auth\SentinelRegisterController');	
 	});
 
-	Route::group(['middleware'=>['admen']], function(){
+	Route::group(['middleware'=>['admin']], function(){
 		Route::get('inquiries', 'InquiryController@index');
 		Route::get('inquiries/{inquiry}', 'InquiryController@show')->name('inquiries.show');
 		Route::DELETE('inquiries/{inquiry}', 'InquiryController@destroy')->name('inquiries.destroy');
@@ -192,7 +190,7 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
 	});
 });
 
-// end Admen panel
+// end admin panel
 
 
 Route::get('{title}/{package}', 'PublicController@package_details');

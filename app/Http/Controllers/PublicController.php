@@ -110,11 +110,7 @@ class PublicController extends Controller
         return view('frontend.popular-packages');         
     }
 
-    public function details()
-    {
-    	return view('frontend.details');
-    }
-
+    
     public function my_orders()
     {
         $page_title = "My Orders";
