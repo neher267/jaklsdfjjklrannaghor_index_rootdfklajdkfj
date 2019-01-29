@@ -17,7 +17,7 @@ class CustomerMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if($this->authorize('customer'))
+        if($this->user_authorization('customer'))
         {
             return $next($request);
         } else {

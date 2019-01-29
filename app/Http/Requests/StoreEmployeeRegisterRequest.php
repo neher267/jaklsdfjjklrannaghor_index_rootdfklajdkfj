@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContactRequest extends FormRequest
+class StoreEmployeeRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,12 @@ class ContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|max:50|min:3|string',
-            'email'=>'required|email|string|max:191',
-            'subject' => 'required|string|max:191|min:5',
-            'message' => 'required|string|min:10',
+            'name'=>'required|max:50|min:5|string',
+            'mobile'=>'required|email|max:191|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'gender' => 'required|string|max:1',
+            'role' => 'required|string|max:20|min:3',
+            'branch_id' => 'required',
         ];
     }
 }

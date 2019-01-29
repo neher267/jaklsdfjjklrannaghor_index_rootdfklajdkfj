@@ -13,7 +13,7 @@ trait SentinelTrait
      * @param  \Closure  $next
      * @return mixed
      */
-    public function authorize(...$roles)
+    public function user_authorization(...$roles)
     {
         if($user = Sentinel::check()){
             $slug = $user->roles()->first()->slug;
@@ -44,5 +44,26 @@ trait SentinelTrait
         }
         
         return false; 
+    }
+
+    /*
+    * Employee Registration
+    * Onny Heigher Managemnt can register a lower degignation employee
+    */
+
+    public function assigningRoleToEmployee($user_role_slug)
+    {
+        $authorization = false;
+
+        if($administrator = Sentinel::check()){
+            $administrator_role = $administrator->roles()->first();
+            if ($user_role = Sentinel::findRoleBySlug($user_role_slug)) {
+                if($user_role_slug != 'customer' && $administrator_role->weight > $user_role->weight)
+                {
+                    $authorization = true;
+                }
+            }           
+        }
+        return $authorization; 
     }
 }

@@ -9,6 +9,7 @@ Route::get('/', 'PublicController@index');
 Route::get('contact', 'PublicController@contact_us');
 Route::get('categories/{category}/foods','PublicController@category_foods')->name('category.foods');
 Route::get('checkout','CheckoutController@index');	
+Route::post('inquiries', 'InquiryController@store');	
 Route::get('menu', 'PublicController@menu');
 Route::get('menu/{product}', 'PublicController@menu_item_details')->name('food-detatils');
 
@@ -18,6 +19,7 @@ Route::post('cart/{product}/add', 'CartController@add')->name('cart.add');
 Route::post('cart', 'AjaxRequestController@cart');
 Route::post('cart-update', 'CartController@cart_update');
 Route::post('remove-item', 'CartController@remove_item');
+/*--End Cart--*/
 
 Route::group(['namespace'=>'Auth', 'middleware'=>['guest']], function()
 {
@@ -27,8 +29,12 @@ Route::group(['namespace'=>'Auth', 'middleware'=>['guest']], function()
 	Route::post('signup','CustomerRegisterController@store');
 });
 
-Route::post('logout', 'Auth\SentinelLoginController@logout')->middleware('sentinel.auth');
 
+/*
+|--------------------------------------------------------------------------
+| This routes are used when customer is logged in
+|--------------------------------------------------------------------------
+*/
 
 Route::group(['middleware'=>['customer']], function()
 {
@@ -44,30 +50,14 @@ Route::group(['middleware'=>['customer']], function()
 				->name('comment.replay.store');
 });
 
-
-
-//end cart
-
-//inquiries
-//Route::get('dashboard/inquiries', 'InquiryController@index')->middleware('admin');
-Route::post('inquiries', 'InquiryController@store');
-//Route::get('dashboard/inquiries/{inquiry}', 'InquiryController@show')->middleware('admin')->name('inquiries.show');
-
-//end inquiries
-
-// admin panel 
-
-
-
-
 Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
 
 	Route::get('/','DashboardController@index');
-	Route::get('profile','ProfileController@index');
 	Route::group(['middleware'=>['admin']], function(){
+		Route::get('employee-register','Auth\EmployeeRegisterController@create')->name('employee-register');	
+		Route::post('employee-register','Auth\EmployeeRegisterController@store');	
 		Route::resource('packages','PackageController');
 		Route::resource('trets','TretController');
-		Route::resource('register','Auth\SentinelRegisterController');	
 	});
 
 	Route::group(['middleware'=>['admin']], function(){
@@ -169,11 +159,15 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
 		//end orders
 	});
 });
-
 // end admin panel
 
 
-Route::get('{title}/{package}', 'PublicController@package_details');
+/*----User Log out----*/
+Route::post('logout', 'Auth\SentinelLoginController@logout')->middleware('sentinel.auth');
+
+
+
+
 
 
 

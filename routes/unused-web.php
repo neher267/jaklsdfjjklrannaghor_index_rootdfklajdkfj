@@ -16,3 +16,5 @@ Route::group(['middleware'=>['sentinel.auth']], function(){
 	Route::resource('purchases','PurchaseController');
 	Route::get('my-purchases', 'PurchaseController@individualIndex');
 });
+
+Route::get('{title}/{package}', 'PublicController@package_details');

@@ -19,7 +19,7 @@ class BuyerMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if($this->authorize('admin', 'buyer')) 
+        if($this->user_authorization('admin', 'buyer')) 
             return $next($request);
         else
             return redirect()->back();

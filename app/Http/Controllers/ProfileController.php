@@ -20,6 +20,9 @@ class ProfileController extends Controller
     {
         $user = Sentinel::getUser();
         $page_title = 'Profile';
+        if($user->roles()->first()->slug != 'customer'){
+            return back();
+        }
         return view('frontend.pages.profile', compact('user','page_title'));
     }
 
