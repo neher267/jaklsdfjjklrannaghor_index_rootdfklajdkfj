@@ -11,30 +11,22 @@ use App\Models\Hr\Product;
 use Sentinel;
 
 
-class OrderController extends Controller
+class CustomerOrdersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the customer indiviual orders.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $page_title = "My Orders";
+        $orders = Sentinel::getUser()->myOrders()->latest()->paginate(10);
+        return view('frontend.pages.customer-orders', compact('page_title', 'orders'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store a newly created order in storage by customer.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -44,6 +36,7 @@ class OrderController extends Controller
         $order = new Order;
         $order->s_address = $request->s_address;
         $order->notes = $request->notes;
+        $order->slug = time(). Sentinel::getUser()->id;
         $order->user()->associate(Sentinel::getUser())->save();
         foreach (Cart::content() as $content) {
             $orderDetails = new OrderDetail;
@@ -52,9 +45,7 @@ class OrderController extends Controller
             $orderDetails->quantity = $content->qty;
             $orderDetails->price = $content->price;
             $orderDetails->save();
-            //dd($orderDetails->product);
             $orderDetails->product->makePopular();
-
         }
         Cart::destroy();
         return redirect('/')->withSuccess('You order is placed successfully! We will contact you soon. Thank you for your order.');      
@@ -66,46 +57,13 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        $order = Order::find($id);
-        $inquiry = $order->inquiry()->first();
-        $page_title = 'Order Details';
-
-        return view('layouts.backend2.pages.orders.show', compact('order', 'inquiry', 'page_title'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $page_title = "Details";
+        if(Sentinel::getUser()->id == $order->user_id){
+            $details = $order->order_details;  
+            return view('frontend.pages.customer-order-details', compact('page_title', 'details'));
+        }
+        return back();
     }
 }

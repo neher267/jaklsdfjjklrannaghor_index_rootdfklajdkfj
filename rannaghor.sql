@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `activations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rannaghor.activations: ~3 rows (approximately)
+-- Dumping data for table rannaghor.activations: ~2 rows (approximately)
 /*!40000 ALTER TABLE `activations` DISABLE KEYS */;
 INSERT INTO `activations` (`id`, `user_id`, `code`, `completed`, `completed_at`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'NHD9Eic3LZ00vc8Oz08wbH2xySRiKYPn', 1, '2019-01-21 13:15:08', '2019-01-21 13:15:08', '2019-01-21 13:15:08'),
@@ -120,15 +120,16 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rannaghor.comments: ~4 rows (approximately)
+-- Dumping data for table rannaghor.comments: ~5 rows (approximately)
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
 INSERT INTO `comments` (`id`, `user_id`, `parent_id`, `body`, `commentable_id`, `commentable_type`, `created_at`, `updated_at`) VALUES
-	(1, 4, NULL, 'This food is greate!', 1, 'product', '2019-01-26 09:16:45', '2019-01-26 09:16:45'),
-	(2, 2, NULL, 'I love this food!', 1, 'product', '2019-01-26 09:23:35', '2019-01-26 09:23:35'),
-	(3, 2, 1, 'I agree with your Shreshtha!', 1, 'product', '2019-01-26 09:24:20', '2019-01-26 09:24:20'),
-	(6, 4, 1, 'Thanks, Neher!', 1, 'product', '2019-01-26 09:41:15', '2019-01-26 09:41:15');
+	(1, 2, NULL, 'This food is great!', 1, 'product', '2019-01-27 09:06:11', '2019-01-27 09:06:11'),
+	(2, 4, 1, 'I agree with you', 1, 'product', '2019-01-27 09:08:00', '2019-01-27 09:08:00'),
+	(3, 2, 2, 'Thanks', 1, 'product', '2019-01-27 09:08:31', '2019-01-27 09:08:31'),
+	(4, 2, 1, 'It works', 1, 'product', '2019-01-29 08:59:50', '2019-01-29 08:59:50'),
+	(5, 2, 2, 'It also works', 1, 'product', '2019-01-29 09:00:13', '2019-01-29 09:00:13');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 
 -- Dumping structure for table rannaghor.departments
@@ -284,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table rannaghor.migrations: ~22 rows (approximately)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
@@ -307,11 +308,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(16, '2018_02_18_085040_create_adderesses_table', 1),
 	(17, '2018_02_20_060101_create_areas_table', 1),
 	(18, '2018_02_20_060425_create_districts_table', 1),
-	(23, '2018_10_27_072348_create_orders_table', 2),
-	(24, '2018_10_27_072423_create_order_details_table', 2),
-	(25, '2018_11_08_061952_create_inquiries_table', 2),
-	(26, '2018_11_20_123221_create_image_details_table', 3),
-	(28, '2019_01_23_175516_create_comments_table', 4);
+	(24, '2018_10_27_072423_create_order_details_table', 1),
+	(25, '2018_11_08_061952_create_inquiries_table', 1),
+	(26, '2018_11_20_123221_create_image_details_table', 1),
+	(28, '2019_01_23_175516_create_comments_table', 1),
+	(29, '2018_10_27_072348_create_orders_table', 2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table rannaghor.mix_products
@@ -335,22 +336,21 @@ CREATE TABLE IF NOT EXISTS `mix_products` (
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
+  `slug` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `s_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `notes` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `payment_status` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `orders_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rannaghor.orders: ~3 rows (approximately)
+-- Dumping data for table rannaghor.orders: ~0 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`id`, `user_id`, `s_address`, `notes`, `status`, `payment_status`, `created_at`, `updated_at`) VALUES
-	(1, 2, 'Dilu Road, Moghbazar, 1000', NULL, 1, 0, '2019-01-22 15:34:04', '2019-01-22 15:58:31'),
-	(2, 3, 'Arjatpara, Mohakhali', NULL, 0, 0, '2019-01-22 22:33:34', '2019-01-22 22:33:34'),
-	(3, 2, 'Dilu Road, Moghbazar, 1001', NULL, 1, 0, '2019-01-22 22:51:42', '2019-01-22 22:53:57'),
-	(4, 2, 'Dilu Road, Moghbazar, 1001', NULL, 0, 0, '2019-01-23 22:05:13', '2019-01-23 22:05:13');
+INSERT INTO `orders` (`id`, `user_id`, `slug`, `s_address`, `notes`, `status`, `payment_status`, `created_at`, `updated_at`) VALUES
+	(1, 2, '15487764052', 'Dilu Road, Moghbazar, 1001', NULL, 0, 0, '2019-01-29 21:40:05', '2019-01-29 21:40:05');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table rannaghor.order_details
@@ -361,17 +361,13 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `price` decimal(6,2) NOT NULL,
   `quantity` decimal(5,0) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rannaghor.order_details: ~4 rows (approximately)
+-- Dumping data for table rannaghor.order_details: ~0 rows (approximately)
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `price`, `quantity`) VALUES
-	(1, 1, 1, 8.00, 1),
-	(2, 1, 2, 10.00, 1),
-	(3, 2, 3, 12.00, 1),
-	(4, 3, 1, 8.00, 3),
-	(5, 3, 2, 10.00, 2),
-	(6, 4, 2, 10.00, 14);
+	(1, 1, 1, 8.00, 5),
+	(2, 1, 2, 10.00, 1);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 
 -- Dumping structure for table rannaghor.packages
@@ -416,21 +412,14 @@ CREATE TABLE IF NOT EXISTS `persistences` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `persistences_code_unique` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rannaghor.persistences: ~10 rows (approximately)
+-- Dumping data for table rannaghor.persistences: ~4 rows (approximately)
 /*!40000 ALTER TABLE `persistences` DISABLE KEYS */;
 INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`) VALUES
-	(7, 1, 'nelSdazp8l99Tl7f4gtGzRgfKLSBwGyg', '2019-01-21 16:37:29', '2019-01-21 16:37:29'),
-	(8, 1, 'vNWCa4y0yfxTqosMs59yuFRK0WjxQZ69', '2019-01-22 10:26:56', '2019-01-22 10:26:56'),
-	(14, 1, 'cj5kZMOMSju7JGlnqt4vsT4oFdShn7Eg', '2019-01-22 15:53:08', '2019-01-22 15:53:08'),
-	(22, 1, '6BNDb2shLFaQqaQnt3SzRCpRm7NLxEVC', '2019-01-22 22:52:28', '2019-01-22 22:52:28'),
 	(23, 3, 'hqQumNsuRrVYx4AIkbzoLimS80IkmRjH', '2019-01-22 23:04:04', '2019-01-22 23:04:04'),
-	(24, 2, 'f92f2Wg3MNfHhCH0LHlyXotSO7fOCOLW', '2019-01-23 17:44:35', '2019-01-23 17:44:35'),
-	(25, 2, 'gjtCDQam21LfiI6FFAZzYqtID9M1GK8I', '2019-01-24 22:59:52', '2019-01-24 22:59:52'),
-	(26, 2, 'Yc3L5QGgekQmQsq5ruSWwrWjpUoYZo66', '2019-01-25 22:24:15', '2019-01-25 22:24:15'),
-	(27, 2, 'XwSiDmT2bP893A6S2NaUaXoH54fbEwU2', '2019-01-26 08:45:48', '2019-01-26 08:45:48'),
-	(28, 4, 'YZ0dJev6a7VKr1mcTwAFhb1AYS95yQ09', '2019-01-26 09:16:23', '2019-01-26 09:16:23');
+	(28, 4, 'YZ0dJev6a7VKr1mcTwAFhb1AYS95yQ09', '2019-01-26 09:16:23', '2019-01-26 09:16:23'),
+	(30, 4, 'jWzTFgP7sEbQlpeMpaiA0cPVDpGibzRp', '2019-01-27 09:07:01', '2019-01-27 09:07:01');
 /*!40000 ALTER TABLE `persistences` ENABLE KEYS */;
 
 -- Dumping structure for table rannaghor.prices
@@ -472,8 +461,8 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Dumping data for table rannaghor.products: ~5 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `category_id`, `branch_id`, `name`, `description`, `informations`, `slug`, `unit`, `hit_count`, `price`, `old_price`, `for_sale`, `thumbnail`, `created_at`, `updated_at`) VALUES
-	(1, 1, NULL, 'Boiled Floor Bread', '<ol>\r\n	<li>Pure floor and warer are used for making bread.</li>\r\n	<li>One piece of bread is 75g.</li>\r\n	<li>Bread is very soft.&nbsp;</li>\r\n</ol>', '<ol>\r\n	<li>One piece of bread contains 150 kcl</li>\r\n	<li>Fat is 0 g</li>\r\n	<li>Protin is 3.6 g</li>\r\n</ol>', 'boiled-floor-bread1', 'PCS', 4, 8.00, NULL, 1, 'images/products/1540379773.jpg', '2018-10-24 11:16:13', '2019-01-22 22:51:42'),
-	(2, 1, NULL, 'Boiled Floor Bread 2', '<ol>\r\n	<li>Pure floor and warer are used for making bread.</li>\r\n	<li>One piece of bread is 75g.</li>\r\n	<li>Bread is very soft.&nbsp;</li>\r\n</ol>', '<ol>\r\n	<li>One piece of bread contains 150 kcl</li>\r\n	<li>Fat is 0 g</li>\r\n	<li>Protin is 3.6 g</li>\r\n</ol>', 'boiled-floor-bread2', 'PCS', 3, 10.00, NULL, 1, 'images/products/1540379773.jpg', '2018-10-24 11:16:13', '2019-01-23 22:05:13'),
+	(1, 1, NULL, 'Boiled Floor Bread', '<ol>\r\n	<li>Pure floor and warer are used for making bread.</li>\r\n	<li>One piece of bread is 75g.</li>\r\n	<li>Bread is very soft.&nbsp;</li>\r\n</ol>', '<ol>\r\n	<li>One piece of bread contains 150 kcl</li>\r\n	<li>Fat is 0 g</li>\r\n	<li>Protin is 3.6 g</li>\r\n</ol>', 'boiled-floor-bread1', 'PCS', 6, 8.00, NULL, 1, 'images/products/1540379773.jpg', '2018-10-24 11:16:13', '2019-01-29 21:40:05'),
+	(2, 1, NULL, 'Boiled Floor Bread 2', '<ol>\r\n	<li>Pure floor and warer are used for making bread.</li>\r\n	<li>One piece of bread is 75g.</li>\r\n	<li>Bread is very soft.&nbsp;</li>\r\n</ol>', '<ol>\r\n	<li>One piece of bread contains 150 kcl</li>\r\n	<li>Fat is 0 g</li>\r\n	<li>Protin is 3.6 g</li>\r\n</ol>', 'boiled-floor-bread2', 'PCS', 5, 10.00, NULL, 1, 'images/products/1540379773.jpg', '2018-10-24 11:16:13', '2019-01-29 21:40:05'),
 	(3, 1, NULL, 'Boiled Floor Bread 3', '<ol>\r\n	<li>Pure floor and warer are used for making bread.</li>\r\n	<li>One piece of bread is 75g.</li>\r\n	<li>Bread is very soft.&nbsp;</li>\r\n</ol>', '<ol>\r\n	<li>One piece of bread contains 150 kcl</li>\r\n	<li>Fat is 0 g</li>\r\n	<li>Protin is 3.6 g</li>\r\n</ol>', 'boiled-floor-bread3', 'PCS', 1, 12.00, NULL, 1, 'images/products/1540379773.jpg', '2018-10-24 11:16:13', '2019-01-22 22:33:34'),
 	(4, 1, NULL, 'Boiled Floor Bread 4', '<ol>\r\n	<li>Pure floor and warer are used for making bread.</li>\r\n	<li>One piece of bread is 75g.</li>\r\n	<li>Bread is very soft.&nbsp;</li>\r\n</ol>', '<ol>\r\n	<li>One piece of bread contains 150 kcl</li>\r\n	<li>Fat is 0 g</li>\r\n	<li>Protin is 3.6 g</li>\r\n</ol>', 'boiled-floor-bread4', 'PCS', 0, 14.00, NULL, 1, 'images/products/1540379773.jpg', '2018-10-24 11:16:13', '2018-11-27 11:42:50'),
 	(5, 1, NULL, 'Boiled Floor Bread 5', '<ol>\r\n	<li>Pure floor and warer are used for making bread.</li>\r\n	<li>One piece of bread is 75g.</li>\r\n	<li>Bread is very soft.&nbsp;</li>\r\n</ol>', '<ol>\r\n	<li>One piece of bread contains 150 kcl</li>\r\n	<li>Fat is 0 g</li>\r\n	<li>Protin is 3.6 g</li>\r\n</ol>', 'boiled-floor-bread5', 'PCS', 0, 16.00, NULL, 1, 'images/products/1540379773.jpg', '2018-11-29 11:42:50', '2018-11-27 11:42:50');
@@ -527,17 +516,14 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `roles_slug_unique` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rannaghor.roles: ~6 rows (approximately)
+-- Dumping data for table rannaghor.roles: ~2 rows (approximately)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`id`, `slug`, `name`, `weight`, `permissions`, `created_at`, `updated_at`) VALUES
-	(1, 'admin', 'Admin', 100, NULL, '2018-03-06 10:17:22', '2018-04-18 15:10:52'),
-	(3, 'buyer', 'Buyer', 50, NULL, '2018-03-08 06:31:53', '2018-05-15 06:07:35'),
-	(4, 'customer', 'Customer', 999, NULL, '2018-03-09 05:49:31', '2018-04-20 06:33:20'),
-	(5, 'managing_director', 'Managing Director', 150, NULL, '2018-03-09 05:49:44', '2018-05-15 06:01:20'),
-	(6, 'delevery_boy', 'Delevery boy', 55, NULL, '2018-03-09 05:49:59', '2018-05-15 06:09:44'),
-	(8, 'manager', 'Manager', 80, NULL, '2018-05-15 06:02:37', '2018-05-15 06:02:37');
+	(1, 'chairman', 'Chairman', 500, NULL, '2019-01-28 22:53:15', '2019-01-28 22:53:17'),
+	(2, 'admin', 'Admin', 450, NULL, '2019-01-28 22:53:58', '2019-01-28 22:53:59'),
+	(3, 'customer', 'Customer', 999, NULL, '2019-01-29 08:59:01', '2019-01-29 08:59:01');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Dumping structure for table rannaghor.role_users
@@ -549,13 +535,13 @@ CREATE TABLE IF NOT EXISTS `role_users` (
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rannaghor.role_users: ~3 rows (approximately)
+-- Dumping data for table rannaghor.role_users: ~4 rows (approximately)
 /*!40000 ALTER TABLE `role_users` DISABLE KEYS */;
 INSERT INTO `role_users` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
-	(1, 1, '2019-01-21 13:15:08', '2019-01-21 13:15:08'),
-	(2, 4, '2019-01-21 13:24:43', '2019-01-21 13:24:43'),
-	(3, 4, '2019-01-22 22:30:25', '2019-01-22 22:30:25'),
-	(4, 4, '2019-01-26 09:16:22', '2019-01-26 09:16:22');
+	(1, 2, '2019-01-21 13:15:08', '2019-01-21 13:15:08'),
+	(2, 3, '2019-01-21 13:24:43', '2019-01-21 13:24:43'),
+	(3, 3, '2019-01-22 22:30:25', '2019-01-22 22:30:25'),
+	(4, 3, '2019-01-26 09:16:22', '2019-01-26 09:16:22');
 /*!40000 ALTER TABLE `role_users` ENABLE KEYS */;
 
 -- Dumping structure for table rannaghor.stocks
@@ -585,9 +571,9 @@ CREATE TABLE IF NOT EXISTS `throttle` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `throttle_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rannaghor.throttle: ~11 rows (approximately)
+-- Dumping data for table rannaghor.throttle: ~22 rows (approximately)
 /*!40000 ALTER TABLE `throttle` DISABLE KEYS */;
 INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at`) VALUES
 	(1, NULL, 'global', NULL, '2019-01-21 13:07:26', '2019-01-21 13:07:26'),
@@ -601,7 +587,19 @@ INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at
 	(9, NULL, 'global', NULL, '2019-01-22 20:40:38', '2019-01-22 20:40:38'),
 	(10, NULL, 'ip', '127.0.0.1', '2019-01-22 20:40:38', '2019-01-22 20:40:38'),
 	(11, NULL, 'global', NULL, '2019-01-22 20:41:12', '2019-01-22 20:41:12'),
-	(12, NULL, 'ip', '127.0.0.1', '2019-01-22 20:41:12', '2019-01-22 20:41:12');
+	(12, NULL, 'ip', '127.0.0.1', '2019-01-22 20:41:12', '2019-01-22 20:41:12'),
+	(13, NULL, 'global', NULL, '2019-01-28 19:38:20', '2019-01-28 19:38:20'),
+	(14, NULL, 'ip', '::1', '2019-01-28 19:38:20', '2019-01-28 19:38:20'),
+	(15, 2, 'user', NULL, '2019-01-28 19:38:20', '2019-01-28 19:38:20'),
+	(16, NULL, 'global', NULL, '2019-01-28 19:39:42', '2019-01-28 19:39:42'),
+	(17, NULL, 'ip', '::1', '2019-01-28 19:39:42', '2019-01-28 19:39:42'),
+	(18, 2, 'user', NULL, '2019-01-28 19:39:42', '2019-01-28 19:39:42'),
+	(19, NULL, 'global', NULL, '2019-01-28 19:41:21', '2019-01-28 19:41:21'),
+	(20, NULL, 'ip', '::1', '2019-01-28 19:41:21', '2019-01-28 19:41:21'),
+	(21, 2, 'user', NULL, '2019-01-28 19:41:21', '2019-01-28 19:41:21'),
+	(22, NULL, 'global', NULL, '2019-01-28 19:41:44', '2019-01-28 19:41:44'),
+	(23, NULL, 'ip', '::1', '2019-01-28 19:41:44', '2019-01-28 19:41:44'),
+	(24, 2, 'user', NULL, '2019-01-28 19:41:44', '2019-01-28 19:41:44');
 /*!40000 ALTER TABLE `throttle` ENABLE KEYS */;
 
 -- Dumping structure for table rannaghor.trets
@@ -639,13 +637,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_mobile_unique` (`mobile`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rannaghor.users: ~3 rows (approximately)
+-- Dumping data for table rannaghor.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `branch_id`, `mobile`, `email`, `name`, `address`, `points`, `password`, `profile_image`, `permissions`, `interests`, `last_login`, `created_at`, `updated_at`) VALUES
-	(1, NULL, 'admin@kitchenbd.com', '', 'Admin', 'Dilu Road, Moghbazar, 1000', 0, '$2y$10$nXQS5IJdxjw6AZSfwFiede67UAW8LJ4QXg2yiElKuMZw7rsqowlJm', NULL, NULL, NULL, '2019-01-22 22:52:28', '2019-01-21 13:15:08', '2019-01-22 22:52:28'),
-	(2, NULL, '01784255196', NULL, 'Neher Halder', 'Dilu Road, Moghbazar, 1001', 0, '$2y$10$tUmL4o8Y15ojPuJFiywS.exBuC.j50sJJpihItJSQv6s.ZtnlqzNG', 'images/users/1548472991.JPG', NULL, 'I Like to foods that is fresh and pure...', '2019-01-26 08:45:48', '2019-01-21 13:24:43', '2019-01-26 09:23:11'),
+	(1, NULL, 'admin@kitchenbd.com', '', 'Admin', 'Dilu Road, Moghbazar, 1000', 0, '$2y$10$nXQS5IJdxjw6AZSfwFiede67UAW8LJ4QXg2yiElKuMZw7rsqowlJm', NULL, NULL, NULL, '2019-01-29 20:02:22', '2019-01-21 13:15:08', '2019-01-29 20:02:22'),
+	(2, NULL, '01784255196', NULL, 'Neher Halder', 'Dilu Road, Moghbazar, 1001', 0, '$2y$10$tUmL4o8Y15ojPuJFiywS.exBuC.j50sJJpihItJSQv6s.ZtnlqzNG', 'images/users/1548472991.JPG', NULL, 'I Like to foods that is fresh and pure...', '2019-01-29 21:04:12', '2019-01-21 13:24:43', '2019-01-29 21:04:12'),
 	(3, NULL, '01797224312', NULL, 'New Customer', 'Arjatpara, Mohakhali', 0, '$2y$10$cxTYivTPapHWdIqgCzl5zurcQ2qCSTnuHy72YGUG/QhnXReXUOfjG', NULL, NULL, NULL, '2019-01-22 23:04:04', '2019-01-22 22:30:25', '2019-01-22 23:04:04'),
-	(4, NULL, '01765768609', NULL, 'Shreshtha', 'Mirpur Road, Dhanmondi', 0, '$2y$10$PXgWNEc89K3Tbs414VIg9e2cDc76EMieK/2hOL1iZs.SBnKbRPSK.', 'images/users/1548472957.JPG', NULL, NULL, '2019-01-26 09:16:23', '2019-01-26 09:16:22', '2019-01-26 09:22:37');
+	(4, NULL, '01765768609', NULL, 'Shreshtha', 'Mirpur Road, Dhanmondi', 0, '$2y$10$PXgWNEc89K3Tbs414VIg9e2cDc76EMieK/2hOL1iZs.SBnKbRPSK.', 'images/users/1548472957.JPG', NULL, NULL, '2019-01-27 09:07:01', '2019-01-26 09:16:22', '2019-01-27 09:07:01');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

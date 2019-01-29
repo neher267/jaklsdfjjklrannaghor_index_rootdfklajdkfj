@@ -6,6 +6,10 @@
         <div class="inner_sec" style="margin-bottom: 30px">
             <p class="sub text-center mb-lg-5 mb-3">{{$page_title}}</p>
             <div class="address row">
+                <a href="{{route('customer.orders.index')}}" 
+                class="btn btn-default btn-sm color-primary" style="margin-bottom: 8px;">
+                <i class="fa fa-arrow-circle-left"></i> Back</a>
+
 				@if(sizeof($details))                            
                 <table class="timetable_sub">
                     <thead>

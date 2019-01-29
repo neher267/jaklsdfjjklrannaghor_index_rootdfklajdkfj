@@ -45,7 +45,7 @@
                         </form>
                     </li>
                     <li style="display: block;"><a href="{{url('profile')}}">Profile</a></li>
-                    <li style="display: block;"><a href="{{url('my-orders')}}">My Orders</a></li>
+                    <li style="display: block;"><a href="{{route('customer.orders.index')}}">My Orders</a></li>
                 </ul>
             </li>
             @else

@@ -34,7 +34,7 @@
     							@endif
     						</td> 
                             <td>
-                                <a href="{{route('my-orders.details', $order)}}" class="btn btn-default color-primary">Details</a>
+                                <a href="{{route('customer.orders.show', $order)}}" class="btn btn-default color-primary">Details</a>
                             </td>                                                       
                         </tr> 
                         @endforeach                        

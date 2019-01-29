@@ -38,9 +38,10 @@ Route::group(['namespace'=>'Auth', 'middleware'=>['guest']], function()
 
 Route::group(['middleware'=>['customer']], function()
 {
-	Route::get('my-orders','PublicController@my_orders');
-	Route::get('my-orders/{order}','PublicController@order_details')->name('my-orders.details');
-	Route::post('orders','OrderController@store');	
+	Route::get('orders','CustomerOrdersController@index')->name('customer.orders.index');
+	Route::get('orders/{order}','CustomerOrdersController@show')->name('customer.orders.show');
+	Route::post('orders','CustomerOrdersController@store')->name('customer.orders.store');	
+
 	Route::get('profile','ProfileController@index');
 	Route::get('profile-update','ProfileController@edit');
 	Route::post('profile-update','ProfileController@update');
@@ -50,12 +51,21 @@ Route::group(['middleware'=>['customer']], function()
 				->name('comment.replay.store');
 });
 
+/*----Administration--------*/
+
 Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
 
 	Route::get('/','DashboardController@index');
-	Route::group(['middleware'=>['admin']], function(){
+
+	Route::group(['middleware'=>['chairman']], function(){
 		Route::get('employee-register','Auth\EmployeeRegisterController@create')->name('employee-register');	
 		Route::post('employee-register','Auth\EmployeeRegisterController@store');	
+		
+
+
+	});
+
+	Route::group(['middleware'=>['admin']], function(){
 		Route::resource('packages','PackageController');
 		Route::resource('trets','TretController');
 	});
@@ -66,6 +76,7 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
 		Route::DELETE('inquiries/{inquiry}', 'InquiryController@destroy')->name('inquiries.destroy');
 	});
 
+	
 	Route::group(['namespace'=>'Settings'], function(){
 		Route::resource('areas','AreaController');
 		Route::get('areas/{area}/branches', 'AreaController@branches')->name('area.branches');
@@ -93,7 +104,7 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
 		Route::get('departments/{department}/categories', 'DepartmentController@categories')->name('department.categories');
 		Route::resource('districts','DistrictController');
 		Route::get('districts/{district}/areas', 'DistrictController@areas')->name('district.areas');
-		Route::resource('roles','RoleController');
+		Route::resource('roles','RoleController')->middleware('chairman');
 		Route::get('roles/{role}/users', 'RoleController@users')->name('role.users');
 		Route::resource('gifts','GiftController');
 		// gift image
