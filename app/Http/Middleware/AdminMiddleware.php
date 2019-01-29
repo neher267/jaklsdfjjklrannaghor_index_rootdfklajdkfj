@@ -18,9 +18,11 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if($this->authorize('admin')) 
+        if($this->authorize('admin'))
+        {
             return $next($request);
-        else
+        } else {
             return redirect()->back();
+        }
     }
 }

@@ -2,70 +2,50 @@
 
 /*
 |--------------------------------------------------------------------------
-| Current Used Public Routes
+| Public Routes
 |--------------------------------------------------------------------------
 */
 Route::get('/', 'PublicController@index');
 Route::get('contact', 'PublicController@contact_us');
-Route::get('categories','PublicController@categories');
 Route::get('categories/{category}/foods','PublicController@category_foods')->name('category.foods');
-Route::get('/{category}/types','PublicController@category_types');
-Route::get('{product}/packages', 'PublicController@product_packages');
+Route::get('checkout','CheckoutController@index');	
+Route::get('menu', 'PublicController@menu');
+Route::get('menu/{product}', 'PublicController@menu_item_details')->name('food-detatils');
 
-Route::post('logout', 'Auth\SentinelLoginController@logout')->middleware('sentinel.auth');
+/*--Cart--*/
+Route::post('add-to-cart/{product}', 'CartController@add_to_cart')->name('add-to-cart');
+Route::post('cart/{product}/add', 'CartController@add')->name('cart.add');
+Route::post('cart', 'AjaxRequestController@cart');
+Route::post('cart-update', 'CartController@cart_update');
+Route::post('remove-item', 'CartController@remove_item');
 
-Route::get('all-gifts', 'PublicController@gifts');
-Route::get('all-gifts/{gift}', 'PublicController@gift_details');
-
-
-
-Route::group(['namespace'=>'Auth', 'middleware'=>['guest']], function(){
+Route::group(['namespace'=>'Auth', 'middleware'=>['guest']], function()
+{
+	Route::get('login','SentinelLoginController@login');	
 	Route::post('login','SentinelLoginController@post_login');
-	//Route::get('login','SentinelLoginController@login');
-	Route::get('login',function(){ return back();});
 	Route::get('signup','CustomerRegisterController@create');
 	Route::post('signup','CustomerRegisterController@store');
 });
 
-Route::group(['middleware'=>['sentinel.auth']], function(){
+Route::post('logout', 'Auth\SentinelLoginController@logout')->middleware('sentinel.auth');
+
+
+Route::group(['middleware'=>['customer']], function()
+{
+	Route::get('my-orders','PublicController@my_orders');
+	Route::get('my-orders/{order}','PublicController@order_details')->name('my-orders.details');
+	Route::post('orders','OrderController@store');	
 	Route::get('profile','ProfileController@index');
 	Route::get('profile-update','ProfileController@edit');
 	Route::post('profile-update','ProfileController@update');
-	Route::get('my-orders','PublicController@my_orders');
-	Route::get('my-orders/{order}','PublicController@order_details')->name('my-orders.details');
-	Route::post('products/{product}/comments','CommentsController@store')->name('product.comment.store');
-	Route::post('products/{product}/comments/{comment}/replay','CommentsController@replay_store')->name('comment.replay.store');
-	Route::post('products/{product}/comments/{comment}/replay/{user}','CommentsController@replay_replay_store')->name('replay.replay.store');
-
+	Route::post('products/{product}/comments','CommentsController@store')
+				->name('product.comment.store');
+	Route::post('products/{product}/comments/{comment}/replay','CommentsController@replay_store')
+				->name('comment.replay.store');
 });
 
 
-Route::group(['middleware'=>['sentinel.auth']], function(){
-	Route::resource('purchases','PurchaseController');
-	Route::get('my-purchases', 'PurchaseController@individualIndex');
-});
 
-Route::group(['middleware'=>['sentinel.auth', 'customer']], function(){
-	Route::resource('checkout','CheckoutController');
-});
-
-// temp
-Route::get('menu', 'PublicController@menu');
-Route::get('menu/{product}', 'PublicController@menu_item_details')->name('food-detatils');
-// end temp
-
-// cart 
-Route::post('cart/{product}/add', 'CartController@add')->name('cart.add');
-Route::post('add-to-cart/{product}', 'CartController@add_to_cart')->name('add-to-cart');
-Route::post('increate-qty', 'CartController@increate_qty');
-Route::post('decrease-qty', 'CartController@decrease_qty');
-Route::post('remove-item', 'CartController@remove_item');
-Route::post('cart', 'AjaxRequestController@cart');
-
-Route::post('cart-update', 'CartController@cart_update');
-
-Route::get('checkout','CheckoutController@index');
-Route::post('orders','OrderController@store');//customer middleware and needed
 //end cart
 
 //inquiries
