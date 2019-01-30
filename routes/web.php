@@ -53,17 +53,72 @@ Route::group(['middleware'=>['customer']], function()
 
 /*----Administration--------*/
 
-Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
-
+Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function()
+{
 	Route::get('/','DashboardController@index');
 
-	Route::group(['middleware'=>['chairman']], function(){
+	Route::group(['middleware'=>['chairman']], function()
+	{
 		Route::get('employee-register','Auth\EmployeeRegisterController@create')->name('employee-register');	
-		Route::post('employee-register','Auth\EmployeeRegisterController@store');	
-		
+		Route::post('employee-register','Auth\EmployeeRegisterController@store');
+	});
 
+	Route::group(['namespace'=>'Settings','middleware'=>['chairman']], function()
+	{
+		Route::resource('areas','AreaController');
+
+		/*-----branch----*/		
+		Route::get('areas/{area}/branches', 'AreaController@branches')->name('area.branches');
+		Route::resource('branches','BranchController');
+		Route::get('branches/{branch}/address/create', 'BranchAddressController@create')->name('branch.address.create');
+		Route::post('branches/{branch}/address', 'BranchAddressController@store')->name('branch.address.store');
+		Route::get('branches/{branch}/address/edit', 'BranchAddressController@edit')->name('branch.address.edit');
+		Route::put('branches/{branch}/address/update', 'BranchAddressController@update')->name('branch.address.update');
+		/*-----end branch----*/	
+
+		/*-----category------*/
+		Route::resource('categories','CategoryController');
+		Route::get('category/{category}/products', 'CategoryController@products')->name('category.products');
+		Route::get('categories/{category}/images', 'CategoryImageController@index')->name('category.images.index');
+		Route::post('categories/{category}/images', 'CategoryImageController@store')->name('category.images.store');
+		Route::get('categories/{category}/images/create', 'CategoryImageController@create')->name('category.images.create');
+		Route::PUT('categories/{category}/images/{image}', 'CategoryImageController@update')->name('category.images.update');
+		Route::DELETE('categories/{category}/images/{image_id}', 'CategoryImageController@destroy')
+					->name('category.images.destroy');
+		/*-----category------*/
+
+		/*-----department------*/
+		Route::resource('departments','DepartmentController');
+		Route::get('departments/{department}/categories', 'DepartmentController@categories')->name('department.categories');
+		Route::resource('districts','DistrictController');
+		Route::get('districts/{district}/areas', 'DistrictController@areas')->name('district.areas');
+		Route::resource('roles','RoleController')->middleware('chairman');
+		Route::get('roles/{role}/users', 'RoleController@users')->name('role.users');
+		/*-----end department------*/
+
+		/*-------gifts-------*/
+		Route::resource('gifts','GiftController');	
+		Route::get('gifts/{gift}/images', 'GiftImageController@index')->name('gift.images.index');
+		Route::post('gifts/{gift}/images', 'GiftImageController@store')->name('gift.images.store');
+		Route::get('gifts/{gift}/images/create', 'GiftImageController@create')->name('gift.images.create');
+		Route::get('gifts/{gift}/images/{image_id}/edit', 'GiftImageController@edit')->name('gift.images.edit');
+		Route::PUT('gifts/{gift}/images/{image_id}', 'GiftImageController@update')->name('gift.images.update');
+		Route::DELETE('gifts/{gift}/images/{image_id}', 'GiftImageController@destroy')->name('gift.images.destroy');
+		/*-------gifts-------*/		
+	});
+
+	Route::group(['namespace'=>'Hr'], function()
+	{
+		/*---Manage Customer orders-------*/
+		/*---Access Permission for cahirman and salesman--*/		
+		Route::get('orders-filter/{status}', 'OrderController@index')->name('orders.index');
+		Route::get('orders/{order}', 'OrderController@show')->name('orders.show');
+		Route::POST('orders/{order}/status-change', 'OrderController@change_status')->name('orders.status');
+		/*---End Manage Customer orders-------*/
 
 	});
+
+
 
 	Route::group(['middleware'=>['admin']], function(){
 		Route::resource('packages','PackageController');
@@ -77,46 +132,6 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
 	});
 
 	
-	Route::group(['namespace'=>'Settings'], function(){
-		Route::resource('areas','AreaController');
-		Route::get('areas/{area}/branches', 'AreaController@branches')->name('area.branches');
-		//branch
-		Route::resource('branches','BranchController');
-		Route::get('branches/{branch}/address/create', 'BranchAddressController@create')->name('branch.address.create');
-		Route::post('branches/{branch}/address', 'BranchAddressController@store')->name('branch.address.store');
-		Route::get('branches/{branch}/address/edit', 'BranchAddressController@edit')->name('branch.address.edit');
-		Route::put('branches/{branch}/address/update', 'BranchAddressController@update')->name('branch.address.update');
-		//end branch
-		Route::resource('categories','CategoryController');
-		Route::get('category/{category}/products', 'CategoryController@products')->name('category.products');
-		//category image
-		Route::get('categories/{category}/images', 'CategoryImageController@index')->name('category.images.index');
-		Route::post('categories/{category}/images', 'CategoryImageController@store')->name('category.images.store');
-		Route::get('categories/{category}/images/create', 'CategoryImageController@create')->name('category.images.create');
-		//Route::get('categories/{category}/images/{image_id}/edit', 'CategoryImageController@edit')->name('category.images.edit');
-		Route::PUT('categories/{category}/images/{image}', 'CategoryImageController@update')->name('category.images.update');
-		
-		Route::DELETE('categories/{category}/images/{image_id}', 'CategoryImageController@destroy')->name('category.images.destroy');
-		/*Route::get('categories/{category}/images/{image_id}/active', 'CategoryImageController@active')->name('category.images.active');
-		Route::PUT('categories/{category}/images/{image_id}/dactive', 'CategoryImageController@dactive')->name('category.images.dactive');*/
-		//end category image
-		Route::resource('departments','DepartmentController');
-		Route::get('departments/{department}/categories', 'DepartmentController@categories')->name('department.categories');
-		Route::resource('districts','DistrictController');
-		Route::get('districts/{district}/areas', 'DistrictController@areas')->name('district.areas');
-		Route::resource('roles','RoleController')->middleware('chairman');
-		Route::get('roles/{role}/users', 'RoleController@users')->name('role.users');
-		Route::resource('gifts','GiftController');
-		// gift image
-		Route::get('gifts/{gift}/images', 'GiftImageController@index')->name('gift.images.index');
-		Route::post('gifts/{gift}/images', 'GiftImageController@store')->name('gift.images.store');
-		Route::get('gifts/{gift}/images/create', 'GiftImageController@create')->name('gift.images.create');
-		Route::get('gifts/{gift}/images/{image_id}/edit', 'GiftImageController@edit')->name('gift.images.edit');
-		Route::PUT('gifts/{gift}/images/{image_id}', 'GiftImageController@update')->name('gift.images.update');
-		Route::DELETE('gifts/{gift}/images/{image_id}', 'GiftImageController@destroy')->name('gift.images.destroy');
-		//end gift image		
-	});
-
 	Route::group(['namespace'=>'Hr'], function(){
 		Route::resource('stock','StockController');
 		Route::resource('trets','TretController');
@@ -154,20 +169,18 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function(){
 		Route::DELETE('products/{product}/packages/{package}', 'ProductPackageController@destroy')->name('product.packages.destroy');
 		//end product package
 		//product package image
-		Route::get('products/{product_id}/packages/{package}/images', 'ProductPackageImageController@index')->name('product.package.images.index');
-		Route::get('products/{product_id}/packages/{package}/images/create', 'ProductPackageImageController@create')->name('product.package.images.create');
-		Route::post('products/{product_id}/packages/{package}/images', 'ProductPackageImageController@store')->name('product.package.images.store');
-		Route::get('products/{product_id}/packages/{package}/images/{image_id}/edit', 'ProductPackageImageController@edit')->name('product.package.images.edit');
-		Route::PUT('products/{product_id}/packages/{package}/images/{image_id}', 'ProductPackageImageController@update')->name('product.package.images.update');
+		Route::get('products/{product_id}/packages/{package}/images', 'ProductPackageImageController@index')
+			->name('product.package.images.index');
+		Route::get('products/{product_id}/packages/{package}/images/create', 'ProductPackageImageController@create')
+			->name('product.package.images.create');
+		Route::post('products/{product_id}/packages/{package}/images', 'ProductPackageImageController@store')
+			->name('product.package.images.store');
+		Route::get('products/{product_id}/packages/{package}/images/{image_id}/edit', 'ProductPackageImageController@edit')
+			->name('product.package.images.edit');
+		Route::PUT('products/{product_id}/packages/{package}/images/{image_id}', 'ProductPackageImageController@update')
+			->name('product.package.images.update');
 		Route::DELETE('products/{product_id}/packages/{package}/images/{image_id}', 'ProductPackageImageController@destroy')->name('product.package.images.destroy');
-		//end product package image	
-
-
-		//orders
-		Route::get('orders-filter/{status}', 'OrderController@index')->name('orders.index');
-		Route::get('orders/{order}', 'OrderController@show')->name('orders.show');
-		Route::POST('orders/{order}/status-change', 'OrderController@change_status')->name('orders.status');
-		//end orders
+		//end product package image		
 	});
 });
 // end admin panel

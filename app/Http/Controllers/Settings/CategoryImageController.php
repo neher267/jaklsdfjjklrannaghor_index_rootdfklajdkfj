@@ -86,7 +86,7 @@ class CategoryImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category, Image $image)
-    {       
+    {    
 
         if($request->has('src'))
         {
@@ -99,7 +99,7 @@ class CategoryImageController extends Controller
             $image->save();
         }              
 
-        return redirect("categories/$category->name/images")->withSuccess('Success');
+        return redirect("dashboard/categories/$category->slug/images")->withSuccess('Success');
     }
 
 

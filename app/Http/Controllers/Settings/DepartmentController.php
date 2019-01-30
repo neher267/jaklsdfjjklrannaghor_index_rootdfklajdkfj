@@ -49,7 +49,7 @@ class DepartmentController extends Controller
         
         $department = new Department;
         $department->name = $name;
-        $department->slug = strtolower(str_replace(' ', '-', $name));
+        $department->slug = str_slug($name, '-');
         $department->save();
         return back()->withSuccess('Create Success!');
     }

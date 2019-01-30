@@ -18,11 +18,13 @@ class CustomerRegisterController extends Controller
 
    	public function store(CustomerRegistrationRequest $request)
    	{
-   		$user = Sentinel::registerAndActivate($request->all());
    		if($role = Sentinel::findRoleBySlug('customer')){
+            $user = Sentinel::registerAndActivate($request->all());         
    			$role->users()->attach($user);    
-   			Sentinel::authenticate($request->all());   
+   			Sentinel::authenticate($request->all());  
+            return redirect('checkout')->withSuccess('Registration Success!'); 
    		}
-        return redirect('checkout')->withSuccess('Success!');
+
+         return back()->withError('Sorry! Some error occured.');         
    	}
 }

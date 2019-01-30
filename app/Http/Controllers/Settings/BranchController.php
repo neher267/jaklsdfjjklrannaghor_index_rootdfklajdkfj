@@ -45,7 +45,7 @@ class BranchController extends Controller
         
         $branch = new Branch;
         $branch->name = $name;
-        $branch->slug = strtolower(str_replace(' ', '-', $name));        
+        $branch->slug = str_slug($name, '-');       
         $branch->area()->associate($request->area_id);
         $branch->save();
 

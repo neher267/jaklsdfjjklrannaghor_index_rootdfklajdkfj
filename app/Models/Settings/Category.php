@@ -10,7 +10,11 @@ use App\Image;
 
 class Category extends Model
 {
-    
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+        
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
@@ -29,10 +33,5 @@ class Category extends Model
     public function department()
     {
     	return $this->belongsTo(Department::class);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    }    
 }

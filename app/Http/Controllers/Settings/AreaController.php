@@ -50,7 +50,7 @@ class AreaController extends Controller
         
         $area = new Area;
         $area->name = $name;
-        $area->slug = strtolower(str_replace(' ', '-', $name));
+        $area->slug = str_slug($name, '-');
         $area->district()->associate($request->district_id);
         $area->save();
         return back()->withSuccess('Create Success!');

@@ -53,12 +53,11 @@ class EmployeeRegisterController extends Controller
 
     private function checkBranch($data)
     {
-        if(is_int($data['branch_id']))
+        if($data['branch_id'] == "*")
         {
-            return $data;
+            $data['branch_id'] = null;
         }
-
-        $data['branch_id'] = null;
+        
         return $data;
     }
     

@@ -30,4 +30,18 @@ class CustomerRegistrationRequest extends FormRequest
             'address' => 'required|string|max:191|min:15',
         ];
     }
+
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'mobile.digits' => 'Mobile number is not valid',
+        ];
+    }
+
 }

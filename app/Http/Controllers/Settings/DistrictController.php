@@ -48,7 +48,7 @@ class DistrictController extends Controller
         
         $district = new District;
         $district->name = $name;
-        $district->slug = strtolower(str_replace(' ', '-', $name));
+        $district->slug = str_slug($name, '-');
         $district->save();
         return back()->withSuccess('Create Success!');
     }

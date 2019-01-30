@@ -18,17 +18,18 @@
                         <div class="col-md-6 con-left">
                         	<div class="form-group">
                                 <label>Name</label>
-                                <input class="form-control" type="text" name="name" placeholder="Your Name" required>
+                                <input class="form-control" type="text" name="name" placeholder="Your Name" required 
+                                value="{{ old('name') }}">
                             </div>                            
                             
                             <div class="form-group">
                                 <label class="my-2">Mobile No</label>
-                                <input class="form-control" type="text" name="mobile" required>
+                                <input class="form-control" type="text" name="mobile" required value="{{ old('mobile') }}">
                             </div>
 
                             <div class="form-group">
                                 <label class="my-2">Address</label>
-                                <input class="form-control" type="text" name="address" placeholder="Format : Road,House No,Area,Postal Code" required>
+                                <input class="form-control" type="text" name="address" placeholder="Ex: House-278(2nd Floor), Road-19, Mohakhali, Dhaka-1212" required value="{{ old('address') }}">
                             </div>
                         </div>
                         <div class="col-md-6 con-right">

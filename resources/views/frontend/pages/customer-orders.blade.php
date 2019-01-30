@@ -57,9 +57,6 @@
                 </a></p>
                 @endif
             </div>
-            <div class="col-md-12" style="padding-right: 0px;">
-                                   
-            </div>
         </div>
     </div>
 </section>

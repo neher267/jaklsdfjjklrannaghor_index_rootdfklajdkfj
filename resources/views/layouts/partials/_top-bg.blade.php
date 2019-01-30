@@ -14,7 +14,7 @@
 			<ul class="nav navbar-nav navbar-right">				
 				<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" style="color: white; font-size: 14px">
-                        User Name <span class="caret"></span>
+                        {{Sentinel::getUser()->name}} <span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu">

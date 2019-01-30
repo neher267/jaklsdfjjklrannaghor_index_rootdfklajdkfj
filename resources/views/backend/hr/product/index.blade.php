@@ -23,7 +23,7 @@
 								<th>Name</th>
 								<th>Category</th>
 								<th>Unit</th>
-								<th>Branch</th>
+								<th>Price</th>
 								<th>Packages</th>
 								<th>Actions</th>
 				            </tr>
@@ -38,12 +38,8 @@
 								</td>
 								<td>{{$product->name}}</td>
 								<td>{{$product->category()->first()->name}}</td>
-								<td>{{$product->unit}}</td>
-								<td>
-									<?php
-									echo $product->branch_id == null ? 'All' : $product->branch()->first()->name;
-									?>
-								</td>
+								<td>{{$product->unit}}</td>								
+								<td>{{$product->price}}</td>
 								<td>{{$product->packages()->count()}}</td>
 								<td>
 									<a href="{{route('products.edit', $product)}}" class="btn btn-default">Edit</a>

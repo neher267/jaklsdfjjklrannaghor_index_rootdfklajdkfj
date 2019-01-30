@@ -20,6 +20,11 @@
 							<input type="text" name="name" class="form-control" id="name" required> 
 						</div>	
 
+						<div class="form-group"> 
+							<label for="price">Product Price</label> 
+							<input type="number" name="price" class="form-control" id="price" required> 
+						</div>
+
 						<div class="form-group">
 							<label for="category_id">Product Category</label>
 							<select name="category_id" id="category_id" class="form-control" required>

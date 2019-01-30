@@ -3,8 +3,32 @@
 </header>
 <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
 <div class="menu">
-	<ul id="menu" >		
-		@role('admin', 'hr')
+
+	<ul id="menu" >	
+
+		@role('chairman', 'salesman')
+		<li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span>Orders</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+			<ul id="menu-academico-sub" >
+			   	<li id="menu-academico-avaliacoes" ><a href="{{route('orders.index', 'pending')}}">Pending</a></li> 	
+			   	<li id="menu-academico-avaliacoes" ><a href="{{route('orders.index', 'confirmed')}}">Confirmed</a></li>
+			   	<li id="menu-academico-avaliacoes" ><a href="{{route('orders.index', 'canceled')}}">Canceled</a></li> 	
+			</ul>
+		 </li>
+		@endrole
+
+
+
+
+
+
+
+
+
+
+
+
+
+		@role('chairman')
 		<li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span>Settings</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 			<ul id="menu-academico-sub" >
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('areas.index')}}">Areas</a></li>
@@ -23,7 +47,7 @@
 			<ul id="menu-academico-sub" >
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('expenses.index')}}">Expense</a></li>
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('stock.index')}}">Stock</a></li>	   				   	
-			   	<li id="menu-academico-avaliacoes" ><a href="{{route('trets.index')}}">Trets</a></li>			   				   
+			   	<li id="menu-academico-avaliacoes" ><a href="{{route('trets.index')}}">Trets</a></li>	   				   
 			</ul>
 		 </li>
 
@@ -32,15 +56,7 @@
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('products.index')}}">Products</a></li> 	
 			   	<li id="menu-academico-avaliacoes" ><a href="{{url('dashboard/inquiries')}}">Inquiries</a></li> 	
 			</ul>
-		 </li>
-
-		 <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span>Orders</span> <span class="fa fa-angle-right" style="float: right"></span></a>
-			<ul id="menu-academico-sub" >
-			   	<li id="menu-academico-avaliacoes" ><a href="{{route('orders.index', 0)}}">Pending</a></li> 	
-			   	<li id="menu-academico-avaliacoes" ><a href="{{route('orders.index', 1)}}">Confirmed</a></li>
-			   	<li id="menu-academico-avaliacoes" ><a href="{{route('orders.index', 2)}}">Canceled</a></li> 	
-			</ul>
-		 </li>
+		 </li>	 
 
 		@endrole
 

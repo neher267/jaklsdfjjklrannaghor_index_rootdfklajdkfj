@@ -49,6 +49,8 @@ class ProductController extends Controller
         $product->name = trim(preg_replace('/\s\s+/', ' ', $request->name));
         $product->slug = str_slug($request->name, '-');
         $product->category()->associate($request->category_id);
+        $product->price = $request->price;
+        $product->old_price = $request->price;
         $product->unit = $request->unit;
         $product->for_sale = true;
         $product->description = $request->description;
@@ -100,6 +102,8 @@ class ProductController extends Controller
     {
         $product->name = trim(preg_replace('/\s\s+/', ' ', $request->name));
         $product->category()->associate($request->category_id);
+        $product->old_price = $product->price;
+        $product->price = $request->price;        
         $product->unit = $request->unit;
         $product->for_sale = true;
         $product->description = $request->description;

@@ -9,7 +9,7 @@
 
                 <div class="col-lg-4 address-grid">
                     <div class="row address-info">
-                        <div class="col-md-3 address-left text-center">
+                        <div class="col-md-3 address-left text-center" style="height: 62px">
                             @if(empty($user->profile_image))
                             <i class="far fa-user"></i>
                             @else
