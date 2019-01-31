@@ -4,24 +4,23 @@
 <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
 <div class="menu">
 
-	<ul id="menu" >	
-
+	<ul id="menu" >
 		@role('chairman', 'salesman')
-		<li class="active">
+		<li class="{{Request::segment(3)=='pending' ? 'active':''}}">
 			<a href="{{route('orders.index', 'pending')}}">
-				<i class="fa fa-gift" aria-hidden="true"></i> <span>Pending</span>
+				<i class="fa fa-list"></i> <span>Pending <span id="update_pendfing_orders_count" class="badge" style="background: #337ab7; color: #fff;">{{$pending_count}}</span></span>
 			</a>
 		</li>
 
-		<li>
+		<li class="{{Request::segment(3)=='confirmed' ? 'active':''}}">
 			<a href="{{route('orders.index', 'confirmed')}}">
-				<i class="fa fa-gift" aria-hidden="true"></i> <span>Confirmed</span>
+				<i class="fa fa-list"></i> <span>Confirmed <span class="badge" style="background: green; color: #fff;">{{$confirm_count}}</span></span>
 			</a>
 		</li>
 
-		<li>
+		<li class="{{Request::segment(3)=='canceled' ? 'active':''}}">
 			<a href="{{route('orders.index', 'canceled')}}">
-				<i class="fa fa-gift" aria-hidden="true"></i> <span>Canceled</span>
+				<i class="fa fa-list"></i> <span>Canceled <span class="badge" style="background: #AD1457; color: #fff;">{{$cancel_count}}</span></span>
 			</a>
 		</li>		
 		@endrole

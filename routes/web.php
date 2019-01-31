@@ -111,6 +111,7 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function()
 	{
 		/*---Manage Customer orders-------*/
 		/*---Access Permission for cahirman and salesman--*/		
+		Route::get('pending-orders-count','AjaxRequestController@pending_orders');		
 		Route::get('orders-filter/{status}', 'OrderController@index')->name('orders.index');
 		Route::get('orders/{order}', 'OrderController@show')->name('orders.show');
 		Route::POST('orders/{order}/status-change', 'OrderController@change_status')->name('orders.status');
@@ -122,19 +123,19 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function()
 
 
 
-	Route::group(['middleware'=>['admin']], function(){
+	Route::group(['middleware'=>['chairman']], function(){
 		Route::resource('packages','PackageController');
 		Route::resource('trets','TretController');
 	});
 
-	Route::group(['middleware'=>['admin']], function(){
+	Route::group(['middleware'=>['chairman']], function(){
 		Route::get('inquiries', 'InquiryController@index');
 		Route::get('inquiries/{inquiry}', 'InquiryController@show')->name('inquiries.show');
 		Route::DELETE('inquiries/{inquiry}', 'InquiryController@destroy')->name('inquiries.destroy');
 	});
 
 	
-	Route::group(['namespace'=>'Hr'], function(){
+	Route::group(['namespace'=>'Hr', 'middleware'=>['chairman']], function(){
 		Route::resource('stock','StockController');
 		Route::resource('trets','TretController');
 

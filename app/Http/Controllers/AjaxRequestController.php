@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cart;
+use App\Order;
 
 class AjaxRequestController extends Controller
 {
@@ -54,6 +55,13 @@ class AjaxRequestController extends Controller
         $data = array();
         $data['totalQty'] = Cart::count();  
         $data['subtotal'] = Cart::subtotal();
+        return $data;
+    }
+
+    public function pending_orders()
+    {
+        $data = array();
+        $data['pending_orders_count'] = Order::where('status',0)->get()->count();  
         return $data;
     }
 }

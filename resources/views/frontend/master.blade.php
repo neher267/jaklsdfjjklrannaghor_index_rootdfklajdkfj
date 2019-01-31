@@ -102,7 +102,7 @@
 	</script>
 
 
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="{{asset('public/js/axios.min.js')}}"></script>
 
 	<script type="text/javascript">
 		function cart(id, type)

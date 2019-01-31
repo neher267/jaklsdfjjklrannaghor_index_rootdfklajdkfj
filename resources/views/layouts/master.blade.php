@@ -321,5 +321,43 @@ $("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
 	});
 </script>
 <script src="{{asset('public/js/menu_jquery.js')}}"></script>
+
+@role('chairman','salesman')
+<!-- Neher -->
+<script src="{{asset('public/js/axios.min.js')}}"></script>
+<!-- Ajax request for counting pending orders -->
+
+	<script type="text/javascript">
+		window.setInterval(function(){
+		   this.update_pendfing_orders_count();
+		   //this.play_notification_sound();
+		}, 5000);
+
+		function play_notification_sound(){
+			var audio = new Audio('http://localhost/practice/u1u42rannahorjdlfklasjdfjalks/public/plucky.mp3');
+			audio.play();
+		}
+
+
+		function update_pendfing_orders_count()
+	    {
+	    	axios.get('http://localhost/practice/u1u42rannahorjdlfklasjdfjalks/dashboard/pending-orders-count')
+			.then(function (response) {
+				element = document.getElementById("update_pendfing_orders_count");
+				per_value = parseInt(element.innerHTML);
+				value = parseInt(response.data.pending_orders_count);
+				if(per_value < value)
+				{
+					this.play_notification_sound();
+					this.element.innerHTML = response.data.pending_orders_count;
+				}
+			})
+			.catch(function (error) {
+				alert('Somethis was went wrong! Please inform your heagher management!')
+			    console.log(error);
+			});
+	    }
+	</script>
+	@endrole
 </body>
 </html>

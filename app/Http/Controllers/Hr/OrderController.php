@@ -24,14 +24,11 @@ class OrderController extends Controller
 		if($this->user_authorization('chairman','salesman'))
 		{
 			$order_status = ['pending'=>0, 'confirmed'=>1, 'canceled'=>2];
-			if(in_array($status, $order_status))
+			$title = $this->getTitle($status);
+			if($title != 'error')
 			{
-				$orders = Order::with(['user','order_details'])->where('status', $status)->latest()->get();	
-				$title = $this->getTitle($status);
-				if($title != 'error')
-				{
-					return view('backend.hr.orders.index', compact('orders', 'title'));	
-				}
+				$orders = Order::with(['user','order_details'])->where('status', $order_status[$status])->latest()->get();	
+				return view('backend.hr.orders.index', compact('orders', 'title'));	
 			}
 		}	
 		return back();		
@@ -56,22 +53,34 @@ class OrderController extends Controller
 
 	public function show(Order $order)
 	{
-		//dd($order);
-		$title = "Details";
-		return view('backend.hr.orders.show', compact('order', 'title'));
+		if($this->user_authorization('chairman','salesman'))
+		{
+			$title = "Details";
+			return view('backend.hr.orders.show', compact('order', 'title'));
+		}	
+		return back();
+		
 	}   
 
 	public function change_status(Request $request, Order $order)
-	{
-		$order->status = $request->status;
-		$order->payment_status = $request->p_status;
-		$order->save();
-		return back()->withSuccess('Status Changed Success!');
+	{	
+		if($this->user_authorization('chairman','salesman'))
+		{
+			$order->status = $request->status;
+			$order->payment_status = $request->p_status;
+			$order->save();
+			return back()->withSuccess('Status Changed Success!');
+		}	
+		return back();
 	} 
 
 	public function distroy(Order $order)
 	{
-		$order->delete();
-		return back()->withSuccess('Delation Success!');
+		if($this->user_authorization('chairman','salesman'))
+		{
+			$order->delete();
+			return back()->withSuccess('Delation Success!');
+		}	
+		return back();		
 	}
 }
