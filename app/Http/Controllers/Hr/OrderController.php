@@ -68,4 +68,10 @@ class OrderController extends Controller
 		$order->save();
 		return back()->withSuccess('Status Changed Success!');
 	} 
+
+	public function distroy(Order $order)
+	{
+		$order->delete();
+		return back()->withSuccess('Delation Success!');
+	}
 }

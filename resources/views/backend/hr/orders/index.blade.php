@@ -12,7 +12,7 @@
 					<hr>
 				</div>
 
-				<div class="col-md-12">
+				<div class="col-md-12 table-responsive">
 					<table class="table table-striped table-bordered datatable" cellspacing="0" width="100%">
 						<thead>
 				            <tr>
@@ -46,12 +46,14 @@
 									<a href="{{route('orders.show', $order)}}" class="btn btn-success btn-xs">
 										<fa class="fa fa-eye"></fa> Details</a>									
 
-									<form action="" method="POST" style="display: inline;">
+									@role('chairman')
+									<form action="{{route('orders.delete', $order)}}" method="POST" style="display: inline;">
 										{{ csrf_field() }}
 										{{ method_field('DELETE') }}
 
 										<button type="submit" class="btn btn-danger btn-xs" onclick="return alertUser('delete it?')">Delete</button>
 									</form>
+									@endrole
 								</td>
 						    </tr>
 							@endforeach

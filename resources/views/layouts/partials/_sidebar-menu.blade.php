@@ -7,13 +7,23 @@
 	<ul id="menu" >	
 
 		@role('chairman', 'salesman')
-		<li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span>Orders</span> <span class="fa fa-angle-right" style="float: right"></span></a>
-			<ul id="menu-academico-sub" >
-			   	<li id="menu-academico-avaliacoes" ><a href="{{route('orders.index', 'pending')}}">Pending</a></li> 	
-			   	<li id="menu-academico-avaliacoes" ><a href="{{route('orders.index', 'confirmed')}}">Confirmed</a></li>
-			   	<li id="menu-academico-avaliacoes" ><a href="{{route('orders.index', 'canceled')}}">Canceled</a></li> 	
-			</ul>
-		 </li>
+		<li class="active">
+			<a href="{{route('orders.index', 'pending')}}">
+				<i class="fa fa-gift" aria-hidden="true"></i> <span>Pending</span>
+			</a>
+		</li>
+
+		<li>
+			<a href="{{route('orders.index', 'confirmed')}}">
+				<i class="fa fa-gift" aria-hidden="true"></i> <span>Confirmed</span>
+			</a>
+		</li>
+
+		<li>
+			<a href="{{route('orders.index', 'canceled')}}">
+				<i class="fa fa-gift" aria-hidden="true"></i> <span>Canceled</span>
+			</a>
+		</li>		
 		@endrole
 
 

@@ -114,6 +114,8 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function()
 		Route::get('orders-filter/{status}', 'OrderController@index')->name('orders.index');
 		Route::get('orders/{order}', 'OrderController@show')->name('orders.show');
 		Route::POST('orders/{order}/status-change', 'OrderController@change_status')->name('orders.status');
+		Route::DELETE('orders/{order}/status-change', 'OrderController@distroy')
+			->name('orders.delete')->middleware('chairman');
 		/*---End Manage Customer orders-------*/
 
 	});

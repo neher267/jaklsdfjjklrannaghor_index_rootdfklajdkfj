@@ -34,6 +34,8 @@
                 </a>
 
                 <ul class="dropdown-menu" style="text-align: right;width: 33%;margin-left: 29%">
+                    <li style="display: block;"><a href="{{url('profile')}}">Profile</a></li>
+                    <li style="display: block;"><a href="{{route('customer.orders.index')}}">My Orders</a></li>
                     <li>
                         <a href="{{url('logout')}}"
                             onclick="event.preventDefault();
@@ -44,8 +46,6 @@
                             {{ csrf_field() }}
                         </form>
                     </li>
-                    <li style="display: block;"><a href="{{url('profile')}}">Profile</a></li>
-                    <li style="display: block;"><a href="{{route('customer.orders.index')}}">My Orders</a></li>
                 </ul>
             </li>
             @else
