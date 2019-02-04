@@ -2,9 +2,9 @@
 return [
 
 
-	'mobile' => '01784-255196',
+	'mobile' => '+8801833-429973',
 
-	'email' => 'hr.ruti@gmail.com',
+	'email' => 'bdrannaghar@gmail.com',
 
 	'address' => 'Dhaka, Bangladesh',
 

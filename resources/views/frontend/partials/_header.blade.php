@@ -11,6 +11,7 @@
         <h1 class="logo-w3layouts">
 			<a class="navbar-brand" href="{{url('/')}}">{{config('app.name')}}</a>
 		</h1>
+        <span class="color-primary logo-top"><strong>বিডি</strong></span>
     </div>
 
     <div class="col-md-3 top-info-cart text-right mt-lg-4">

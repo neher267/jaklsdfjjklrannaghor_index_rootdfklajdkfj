@@ -7,6 +7,7 @@
 <meta name="keywords" content="{{config('app.keywords')}}" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Bootstrap Core CSS -->
+<link rel="icon" type="image/png" sizes="16x16" href="{{asset('public/favicon-16x16.png')}}">
 <link href="{{asset('public/css/bootstrap.min.css')}}" rel='stylesheet' type='text/css' />
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
@@ -334,14 +335,14 @@ $("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
 		}, 5000);
 
 		function play_notification_sound(){
-			var audio = new Audio('http://localhost/practice/u1u42rannahorjdlfklasjdfjalks/public/plucky.mp3');
+			var audio = new Audio('https://www.bdrannaghar.com/public/plucky.mp3');
 			audio.play();
 		}
 
 
 		function update_pendfing_orders_count()
 	    {
-	    	axios.get('http://localhost/practice/u1u42rannahorjdlfklasjdfjalks/dashboard/pending-orders-count')
+	    	axios.get('https://www.bdrannaghar.com/dashboard/pending-orders-count')
 			.then(function (response) {
 				element = document.getElementById("update_pendfing_orders_count");
 				per_value = parseInt(element.innerHTML);

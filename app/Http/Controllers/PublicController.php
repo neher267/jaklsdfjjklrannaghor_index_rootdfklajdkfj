@@ -9,6 +9,7 @@ use App\Models\Hr\Package;
 use App\Models\Settings\Gift;
 use App\Image;
 use App\Order;
+use App\Models\Hr\Page;
 use Sentinel;
 
 class PublicController extends Controller
@@ -108,6 +109,21 @@ class PublicController extends Controller
     public function popular_packages()
     {
         return view('frontend.popular-packages');         
-    }    
+    }  
+
+    public function privacy_policy()
+    {
+        $page = Page::where('slug','privacy-policy')->first();
+        $page_title = $page->name;
+        
+        return view('frontend.pages.page', compact('page', 'page_title'));
+    }  
     
+    public function terms_and_conditions()
+    {
+        $page = Page::where('slug','terms-and-conditions')->first();
+        $page_title = $page->name;
+        
+        return view('frontend.pages.page', compact('page', 'page_title'));
+    } 
 }

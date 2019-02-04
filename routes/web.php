@@ -12,6 +12,9 @@ Route::get('checkout','CheckoutController@index');
 Route::post('inquiries', 'InquiryController@store');	
 Route::get('menu', 'PublicController@menu');
 Route::get('menu/{product}', 'PublicController@menu_item_details')->name('food-detatils');
+Route::get('privacy-policy', 'PublicController@privacy_policy');
+Route::get('terms-and-conditions', 'PublicController@terms_and_conditions');
+
 
 /*--Cart--*/
 Route::post('add-to-cart/{product}', 'CartController@add_to_cart')->name('add-to-cart');
@@ -104,7 +107,8 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function()
 		Route::get('gifts/{gift}/images/{image_id}/edit', 'GiftImageController@edit')->name('gift.images.edit');
 		Route::PUT('gifts/{gift}/images/{image_id}', 'GiftImageController@update')->name('gift.images.update');
 		Route::DELETE('gifts/{gift}/images/{image_id}', 'GiftImageController@destroy')->name('gift.images.destroy');
-		/*-------gifts-------*/		
+		/*------- end gifts-------*/
+			
 	});
 
 	Route::group(['namespace'=>'Hr'], function()
@@ -136,6 +140,7 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['management']], function()
 
 	
 	Route::group(['namespace'=>'Hr', 'middleware'=>['chairman']], function(){
+		Route::resource('pages','PagesController');
 		Route::resource('stock','StockController');
 		Route::resource('trets','TretController');
 

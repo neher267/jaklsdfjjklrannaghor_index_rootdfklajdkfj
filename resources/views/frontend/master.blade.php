@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -16,6 +17,7 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
+	<link rel="icon" type="image/png" sizes="16x16" href="{{asset('public/favicon-16x16.png')}}">
 	<link href="{{asset('public/frontend/css/bootstrap.css')}}" rel='stylesheet' type='text/css' />
 	<link href="{{asset('public/frontend/css/login_overlay.css')}}" rel='stylesheet' type='text/css' />
 	<link href="{{asset('public/frontend/css/style6.css')}}" rel='stylesheet' type='text/css' />

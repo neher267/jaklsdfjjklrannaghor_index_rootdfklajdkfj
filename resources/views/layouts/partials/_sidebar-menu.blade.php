@@ -46,6 +46,7 @@
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('districts.index')}}">Districtss</a></li>
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('departments.index')}}">Departments</a></li>
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('gifts.index')}}">Gifts</a></li>
+			   	<li id="menu-academico-avaliacoes" ><a href="{{route('pages.index')}}">Pages</a></li>
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('roles.index')}}">Roles</a></li>		   	
 			   	<li id="menu-academico-avaliacoes" ><a href="{{route('images.index')}}">Images</a></li>			   	
 			   	<li><a href="{{route('employee-register')}}">Add Employee</a></li> 
