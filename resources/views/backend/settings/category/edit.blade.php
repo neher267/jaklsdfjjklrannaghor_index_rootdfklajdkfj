@@ -18,8 +18,13 @@
 					{{ method_field('PUT') }}
 
 						<div class="form-group"> 
-							<label for="name">Category Name</label> 
+							<label for="name">Category Name English</label> 
 							<input type="text" name="name" class="form-control" id="name" required value="{{$category->name}}"> 
+						</div>
+
+						<div class="form-group"> 
+							<label for="bn_name">Category Name Bangla</label> 
+							<input type="text" name="bn_name" class="form-control" id="bn_name" value="{{$category->bn_name}}"> 
 						</div>
 						
 						<div class="form-group">

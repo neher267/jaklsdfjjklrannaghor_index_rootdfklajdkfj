@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Image;
 use App\ImageDetail;
+use App\Models\Hr\Product;
 
 class ImageDetailsController extends Controller
 {
@@ -27,7 +28,8 @@ class ImageDetailsController extends Controller
     public function create(Image $image)
     {
         $title = "Adding Image Details";
-        return view('backend.hr.images.details.create', compact('title', 'image'));
+        $products = Product::orderBy('name', 'asc')->get();
+        return view('backend.hr.images.details.create', compact('title', 'image','products'));
     }
 
     /**
@@ -39,6 +41,7 @@ class ImageDetailsController extends Controller
     public function store(Request $request, Image $image)
     {
         $details = new ImageDetail;
+        $details->product_slug = $request->product_slug;
         $details->title = $request->title;
         $details->body = $request->body;
         $details->image()->associate($image)->save();
@@ -67,7 +70,9 @@ class ImageDetailsController extends Controller
     public function edit(Image $image)
     {
         $title = "Edit Image Details";
-        return view('backend.hr.images.details.edit', compact('title', 'image'));
+        $products = Product::orderBy('name', 'asc')->get();
+
+        return view('backend.hr.images.details.edit', compact('title', 'image','products'));
     }
 
     /**
@@ -80,6 +85,7 @@ class ImageDetailsController extends Controller
     public function update(Request $request, Image $image)
     {
         $details = $image->image_details;
+        $details->product_slug = $request->product_slug;        
         $details->title = $request->title;
         $details->body = $request->body;
         $details->save();

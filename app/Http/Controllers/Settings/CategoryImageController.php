@@ -111,8 +111,11 @@ class CategoryImageController extends Controller
      */
     public function destroy(Request $request, $category_id, $image_id)
     {
-        unlink($request->avatar);
-        $image = Image::find($image_id)->delete();
+        if(file_exists('public/'.$request->avatar))
+        {
+            unlink('public/'.$request->avatar);
+        }
+        Image::find($image_id)->delete();
         return back()->withSuccess("Delation Success!");
     }
 }

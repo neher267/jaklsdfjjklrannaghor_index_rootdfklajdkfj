@@ -50,8 +50,10 @@ class ProductPackageController extends Controller
 
         $package = new Package;
         $package->title = $request->title;
+        $package->bn_title = $request->bn_title;
         $package->slug = time();
         $package->description = $request->description;
+        $package->bn_description = $request->bn_description;
         $package->thumbnail = $this->path.'/'.$imageName;
 
         $product = Product::find($request->product_id);
@@ -79,7 +81,7 @@ class ProductPackageController extends Controller
 
     public function images($product_id, $package_id)
     {
-        dd('ok');
+        return back();
     }
 
     /**
@@ -104,10 +106,12 @@ class ProductPackageController extends Controller
     public function update(Request $request, $product, Package $package)
     {
         $package->title = $request->title;
+        $package->bn_title = $request->bn_title;
         $package->description = $request->description;
+        $package->bn_description = $request->bn_description;
         $package->save();
         
-        return redirect("products/$product/packages")->withSuccess('Update Successfully!');
+        return redirect("dashboard/products/$product/packages")->withSuccess('Update Successfully!');
     }
 
     /**
@@ -118,7 +122,16 @@ class ProductPackageController extends Controller
      */
     public function destroy($id, Package $package)
     {
+        $package->images()->each(function ($item, $key) 
+        {
+            if(file_exists('public/'.$item->src)){
+                unlink('public/'.$item->src);
+            }
+            $item->delete();
+        });
+
         $package->delete();
+
         return back()->withSuccess('Deleted Success!');
     }
 }

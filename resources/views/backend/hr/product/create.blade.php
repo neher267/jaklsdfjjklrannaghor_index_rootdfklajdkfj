@@ -16,9 +16,14 @@
 					{{ csrf_field() }}
 
 						<div class="form-group"> 
-							<label for="name">Product Name</label> 
+							<label for="name">Product Name English</label> 
 							<input type="text" name="name" class="form-control" id="name" required> 
 						</div>	
+
+						<div class="form-group"> 
+							<label for="bn_name">Product Name Bangla</label> 
+							<input type="text" name="bn_name" class="form-control" id="bn_name"> 
+						</div>
 
 						<div class="form-group"> 
 							<label for="price">Product Price</label> 
@@ -46,13 +51,13 @@
 						</div>
 
 						<div class="form-group"> 
-							<label for="description">Product Discription</label>
+							<label for="description">Product Discription English</label>
 							<textarea name="description" id="description" cols="50" rows="4" class="form-control"></textarea>			
 						</div>
 
 						<div class="form-group"> 
-							<label for="informations">Product Informations</label>
-							<textarea name="informations" id="informations" cols="50" rows="4" class="form-control"></textarea>			
+							<label for="bn_description">Product Discription Bangla</label>
+							<textarea name="bn_description" id="bn_description" cols="50" rows="4" class="form-control"></textarea>			
 						</div>
 
 						<div class="form-group"> 
@@ -72,7 +77,8 @@
 	CKEDITOR.replace('description', {
 	    language: 'en',
 	});
-	CKEDITOR.replace('informations', {
+
+	CKEDITOR.replace('bn_description', {
 	    language: 'en',
 	});
 </script>

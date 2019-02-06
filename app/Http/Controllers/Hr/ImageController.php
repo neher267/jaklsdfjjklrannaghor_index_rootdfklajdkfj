@@ -49,7 +49,7 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['src' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:250']);
+        $request->validate(['src' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:400']);
         $imageName = time().'.'.$request->src->getClientOriginalExtension();
         $request->src->move(public_path($this->path), $imageName);
         

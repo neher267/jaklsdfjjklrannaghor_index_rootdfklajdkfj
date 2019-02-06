@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('branch_id')->unsigned()->nullable();
             $table->integer('department_id')->unsigned();
             $table->string('name', 50);
+            $table->string('bn_name', 50)->nullable();
             $table->string('slug')->unique();
             $table->string('thumbnail', 50)->nullable();
 

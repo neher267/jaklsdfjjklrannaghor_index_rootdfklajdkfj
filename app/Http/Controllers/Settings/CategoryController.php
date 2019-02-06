@@ -50,14 +50,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $imageName = time().'.'.$request->src->getClientOriginalExtension();
-        $name = trim(preg_replace('/\s\s+/', ' ', $request->name));
-        
+
         $category = new Category;
-        $category->name = $name;
-        $category->slug = strtolower(str_replace(' ', '-', $name));
-        $category->name = $request->name; 
-        $category->slug = strtolower(str_replace(' ', '-', $request->name));
-        $category->department()->associate($request->department_id);    
+        $category->name = $request->name;
+        $category->bn_name = $request->bn_name;
+        $category->slug = str_slug($request->name, '-');
+        $category->department()->associate($request->department_id);
         $category->thumbnail = $this->path.'/'.$imageName;             
         $category->save();
 
@@ -103,7 +101,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->name = trim(preg_replace('/\s\s+/', ' ', $request->name)); 
+        $category->name = $request->name;
+        $category->bn_name = $request->bn_name;
         $category->department()->associate($request->department_id);    
         $category->save();
         
@@ -128,6 +127,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect('categories')->withSuccess('Deleted Success!');
+        return redirect('dashboard/categories')->withSuccess('Deleted Success!');
     }
 }

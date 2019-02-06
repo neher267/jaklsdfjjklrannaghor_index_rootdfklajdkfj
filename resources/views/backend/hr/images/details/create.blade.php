@@ -18,7 +18,13 @@
 					{{ csrf_field() }}
 
 						<div class="form-group"> 
-							<input type="hidden" name="product_id" value="">
+							<label for="product_slug">Link a Product</label> 
+							<select name="product_slug" id="product_slug" class="form-control">
+								<option value="">Select</option>
+								@foreach($products as $product)
+								<option value="{{$product->slug}}">{{$product->name}}</option>
+								@endforeach
+							</select>
 						</div>	
 
 						<div class="form-group"> 

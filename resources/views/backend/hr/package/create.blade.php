@@ -22,13 +22,23 @@
 						</div>	
 
 						<div class="form-group"> 
-							<label for="title">Package Title</label> 
+							<label for="title">Package Title English</label> 
 							<input type="text" name="title" class="form-control" id="title" placeholder="Ex: This is for you mom!" required> 
 						</div>	
 
 						<div class="form-group"> 
-							<label for="description">Package Discription</label>
-							<textarea name="description" id="description" cols="50" rows="4" class="form-control"></textarea>			
+							<label for="bn_title">Package Title Bangla</label> 
+							<input type="text" name="bn_title" class="form-control" id="bn_title" placeholder="Ex: This is for you mom!"> 
+						</div>
+
+						<div class="form-group"> 
+							<label for="description">Package Discription English</label>
+							<textarea name="description" id="description" cols="50" rows="4" class="form-control"></textarea>	
+						</div>
+
+						<div class="form-group"> 
+							<label for="bn_description">Package Discription Bangla</label>
+							<textarea name="bn_description" id="bn_description" cols="50" rows="4" class="form-control"></textarea>	
 						</div>
 
 						<div class="form-group"> 
@@ -46,8 +56,12 @@
 
 <script>
 	CKEDITOR.replace( 'description', {
-    language: 'en',
-});
+	    language: 'en',
+	});
+
+	CKEDITOR.replace( 'bn_description', {
+	    language: 'en',
+	});
 </script>
 
 

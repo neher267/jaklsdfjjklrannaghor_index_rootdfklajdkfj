@@ -16,6 +16,7 @@ class CreateImageDetailsTable extends Migration
         Schema::create('image_details', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('image_id');
+            $table->string('product_slug', 191)->nullable();
             $table->string('title');
             $table->text('body');
             $table->timestamps();

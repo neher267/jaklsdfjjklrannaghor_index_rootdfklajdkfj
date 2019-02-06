@@ -47,6 +47,7 @@ class ProductController extends Controller
         // both side space remove and more than one space to one space
         $product = new Product;
         $product->name = trim(preg_replace('/\s\s+/', ' ', $request->name));
+        $product->bn_name = trim(preg_replace('/\s\s+/', ' ', $request->bn_name));
         $product->slug = str_slug($request->name, '-');
         $product->category()->associate($request->category_id);
         $product->price = $request->price;
@@ -54,7 +55,7 @@ class ProductController extends Controller
         $product->unit = $request->unit;
         $product->for_sale = true;
         $product->description = $request->description;
-        $product->informations = $request->informations;
+        $product->bn_description = $request->bn_description;
         $product->thumbnail = $this->path.'/'.$imageName; 
         $product->save();
 
@@ -101,16 +102,17 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->name = trim(preg_replace('/\s\s+/', ' ', $request->name));
+        $product->bn_name = trim(preg_replace('/\s\s+/', ' ', $request->bn_name));
         $product->category()->associate($request->category_id);
         $product->old_price = $product->price;
         $product->price = $request->price;        
         $product->unit = $request->unit;
         $product->for_sale = true;
         $product->description = $request->description;
-        $product->informations = $request->informations;
+        $product->bn_description = $request->bn_description;
         $product->save();
 
-        return redirect("dashboard/products")->withSuccess("Edit Successful!");
+        return redirect("dashboard/products")->withSuccess("Update Successful!");
     }
 
     /**

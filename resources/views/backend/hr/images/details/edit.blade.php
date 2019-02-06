@@ -19,6 +19,16 @@
 					{{ method_field("PUT") }}
 
 						<div class="form-group"> 
+							<label for="product_slug">Link a Product</label> 
+							<select name="product_slug" id="product_slug" class="form-control">
+								<option value="">Select</option>
+								@foreach($products as $product)
+								<option value="{{$product->slug}}">{{$product->name}}</option>
+								@endforeach
+							</select>
+						</div>	
+
+						<div class="form-group"> 
 							<label for="title">Title</label> 
 							<input type="text" name="title" class="form-control" id="title" value="{{$image->image_details->title}}" required> 
 						</div>	

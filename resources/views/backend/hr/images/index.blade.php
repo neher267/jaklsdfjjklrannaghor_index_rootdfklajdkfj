@@ -34,7 +34,7 @@
 							<tr>
 								<td>{{++$i}}</td>
 								<td>
-									<img src="{{asset($image->src)}}" style="height: 50px; widows: 40px">
+									<img src="{{asset('public/'.$image->src)}}" style="height: 50px; widows: 40px">
 								</td>
 								<td style="text-transform: capitalize;">{{$image->type}}</td>
 								
