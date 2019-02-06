@@ -121,8 +121,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->images()->each(function ($item, $key) {
-            unlink($item->src);
+        $product->images()->each(function ($item, $key) 
+        {
+            if(file_exists('public/'.$item->src)){
+                unlink('public/'.$item->src);
+            }
             $item->delete();
         });
 

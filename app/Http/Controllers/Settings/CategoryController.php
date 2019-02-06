@@ -107,7 +107,7 @@ class CategoryController extends Controller
         $category->department()->associate($request->department_id);    
         $category->save();
         
-        return redirect('categories')->withSuccess('Update Success!');
+        return redirect('dashboard/categories')->withSuccess('Update Success!');
     }
 
     /**
@@ -119,7 +119,10 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->images()->each(function ($item, $key) {
-            unlink($item->src);
+            if(file_exists('public/'.$item->src))
+            {
+                unlink('public/'.$item->src);
+            }
             $item->delete();
         });
 

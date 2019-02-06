@@ -13,24 +13,24 @@ trait Filter{
 		if (in_array(request('filter'), $keys)) {
 			switch (request('filter')) {
 				case 'popular':
-					return Cache::remember('popular', 10, function () {
+					return Cache::remember('popular', 0.2, function () {
 					    return Product::orderBy('hit_count', 'dsc')->get();
 					});
 					break;
 				case 'low':
-					return Cache::remember('price', 10, function () {
+					return Cache::remember('price', 0.2, function () {
 					    return Product::orderBy('price', 'asc')->get();					
 					});
 					break;
 				case 'high':					
-					return Cache::remember('high', 10, function () {
-					    return Product::orderBy('name', 'dsc')->get();				
+					return Cache::remember('high', 0.2, function () {
+					    return Product::orderBy('price', 'dsc')->get();				
 					});
 					break;
 			}
 		}
 		else{
-			return Cache::remember('products', 10, function () {
+			return Cache::remember('products', 0.2, function () {
 			    return Product::orderBy('name', 'asc')->get();				
 			});
 			

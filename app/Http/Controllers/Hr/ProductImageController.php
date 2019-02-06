@@ -111,7 +111,9 @@ class ProductImageController extends Controller
      */
     public function destroy(Request $request, $product_id, $image_id)
     {
-        unlink($request->avatar);
+        if(file_exists('public/'.$request->avatar)){
+            unlink('public/'.$request->avatar);
+        }
         $image = Image::find($image_id)->delete();
         return back()->withSuccess("Delation Success!");
     }   
