@@ -61,7 +61,7 @@
                 <div class="col-lg-8 single-right-left simpleCart_shelfItem">
                     <h3 style="color: #AD1457">{{$product->name}}</h3>
                     <p>
-                        <span class="item_price">৳ {{number_format($product->price,2)}}</span>
+                        <strong>Price: </strong><span class="item_price">{{number_format($product->price,2)}} BDT</span>
                         <!-- <del>$1,199</del> -->
                     </p>
                     <div class="color-quality">

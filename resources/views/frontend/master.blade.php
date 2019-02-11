@@ -6,7 +6,9 @@
 	<title>{{$page_title}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
-	<meta name="keywords" content="Resturent, Bangla Resturent" />
+	<meta name="keywords" content="resturent, bangla resturent, bangladesh online resturent, best online resturent, daily resturent, daily shop, large shop, bd online resturent, shop, online store,  buy, sell, home shop, bread, chaler ruti, chaler ruti haser mangsho" />
+	<meta name="description" content="Order breakfast and snacks in online.Available home delivery. Save money, save time" />
+	<meta name="google-site-verification" content="wHuCczd0Db_dhKLxMe_9oG6XDJZ1MJo8K-3eNra-rzg" />
 	<meta name="c_url" content="{{url('cart')}}">
 	<script>
 		addEventListener("load", function () {

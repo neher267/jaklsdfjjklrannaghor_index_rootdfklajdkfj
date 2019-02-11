@@ -18,6 +18,10 @@
             <li class="nav-item {{Request::is('contact')? 'active':''}}" style="text-align: center;">
                 <a class="nav-link" href="{{url('contact')}}">Contact</a>
             </li>
+
+            <li class="nav-item" style="text-align: center;">
+                <a class="nav-link" href="https://play.google.com/store/apps/details?id=com.rannaghor.rannaghor">Download App</a>
+            </li>
         </ul>
     </div>
 </nav>

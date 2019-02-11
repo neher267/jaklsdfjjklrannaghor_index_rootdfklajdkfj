@@ -323,7 +323,7 @@ $("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
 </script>
 <script src="{{asset('public/js/menu_jquery.js')}}"></script>
 
-@role('chairman1','salesman')
+@role('chairman','salesman')
 <!-- Neher -->
 <script src="{{asset('public/js/axios.min.js')}}"></script>
 <!-- Ajax request for counting pending orders -->

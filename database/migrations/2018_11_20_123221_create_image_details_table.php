@@ -18,7 +18,7 @@ class CreateImageDetailsTable extends Migration
             $table->unsignedInteger('image_id');
             $table->string('product_slug', 191)->nullable();
             $table->string('title');
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->timestamps();
         });
     }
