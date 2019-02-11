@@ -11,9 +11,6 @@
     }
     
     .comment-body {
-        /*background-color: #ddd;
-        border-radius: 50px;
-        padding: 6px 25px;*/
         background-color: #f2f3f5;
         border-radius: 18px;
         box-sizing: border-box;
@@ -36,6 +33,18 @@
     .replay {
         margin-left: 40px;
         margin-top: 5px;
+    }
+
+    .description{
+        text-align: left;
+    }
+
+    .description > ul{
+        margin-left: 2em;
+        margin-bottom: 20px;
+    }
+    .description > ol{
+        list-style-type: bengali;
     }
 </style>
 <section class="banner-bottom-wthreelayouts py-lg-5 py-3">
@@ -66,8 +75,8 @@
                     </p>
                     <div class="color-quality">
                         <div class="color-quality-right">
-                            <h5>Description :</h5>
-                            <div style="text-align: justify;">
+                            <h5>বর্ণনা : </h5>
+                            <div class="description">
                                 <?php echo html_entity_decode($product->description) ?>
                             </div>
                             <form method="post" action="{{route('add-to-cart', $product)}}" style="display: inline;">
